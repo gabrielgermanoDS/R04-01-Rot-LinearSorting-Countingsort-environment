@@ -17,6 +17,10 @@ public class CountingSort extends AbstractSorting<Integer> {
 
 	@Override
 	public void sort(Integer[] array, int leftIndex, int rightIndex) {
+
+		if (leftIndex < 0 || rightIndex >= array.length) {
+			return;
+		}
 		
 		Integer max = 0;
 
@@ -42,22 +46,22 @@ public class CountingSort extends AbstractSorting<Integer> {
 			aux[i] += aux[i - 1];
 		}
 
-		Integer[] end = new Integer[array.length];
+		Integer[] sortedArray = new Integer[array.length];
 
-		// popula end com zeros
-		for (int i = 0; i < end.length; i++) {
-			end[i] = 0;
+		// popula sortedArray com zeros
+		for (int i = 0; i < sortedArray.length; i++) {
+			sortedArray[i] = 0;
 		}
 
 		for (int j = rightIndex; j >= leftIndex; j--) {
-			end[aux[array[j]] -1] = array[j];
+			sortedArray[aux[array[j]] -1] = array[j];
 			aux[array[j]]--;
 		}
 
 
-		// Replica os elementos de end no array original
+		// Replica os elementos de sortedArray no array original
 		for (int i = 0; i <= rightIndex; i++) {
-			array[i] = end[i];
+			array[i] = sortedArray[i];
 		}
 
 		
